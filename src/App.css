@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+
+
+}
+
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+header {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 8px;
+    background-color: gray;
+}
+
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 4px;
+}
+
+button:hover {
+    background-color: #c5c5c5;
+}
+
+table {
+    border-collapse: collapse;
+    letter-spacing: 1px;
+
+}
+
+td,
+th {
+    padding: 5px 10px;
+    text-align: center;
+    border: 2px solid rgb(200, 200, 200);
+}
+
+th {
+    width: 200px;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #dddddd;
+}
+
+tbody tr:hover {
+    background-color: rgb(238, 195, 195);
+}
+
+
+.dashBoard {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid gray;
+    gap: 10px;
+    width: 500px;
+}
+
+.account-c {
+    margin: 5px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.monthly-wrapper {
+    display: none;
+}
+
+.monthly-wrapper.active {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+}
+
+.monthly-c {
+    display: flex;
+    flex-direction: column;
+}
+
+.daily-wrapper {
+    border-collapse: collapse;
+    display: none;
+}
+
+.daily-wrapper.active {
+    display: block;
+    padding: 8px 0px;
+}
