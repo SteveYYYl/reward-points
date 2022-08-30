@@ -4,6 +4,8 @@ A customer receives 2 points for every dollar spent over $100 in each transactio
 dollar spent over $50 in each transaction
 (e.g. a $120 purchase = 2x$20 + 1x$50 = 90 points).
 
+Customer can insert a new transication by filling out the form, the table would be updated.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
