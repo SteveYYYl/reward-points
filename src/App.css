@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.addForm {
+    display: flex;
+    flex-direction: column;
+}
 
 
 header {

@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
 import getTransData from "../api/dataService"
 import Accounts from './Accounts';
+import AddData from './AddData';
 
 function DashBoard() {
   const [transDatas, setTransDatas] = useState(null);
+  const [data, setData] = useState(null);
+  const [error,setError] = useState({
+    isError:false,
+    message: ""
+  });
+  
 
   // conver amount into points
   const calcPoint = (amt) => {
@@ -53,6 +60,18 @@ function DashBoard() {
         point: calcPoint(amount)
       }
       if (accountNum in transSheets) {
+        if(transSheets[accountNum].name !== name) {
+          const newMessage = "Name does not match Account Number"
+          setError({
+            isError: true,
+            message: newMessage
+          })
+          const newData = datas.filter((data)=>{
+              return data.id !== id
+          })
+          setData(newData);
+          return;
+        }
         transSheets[accountNum].month[monthOfYear]
           ? transSheets[accountNum].month[monthOfYear].push(dailyTrans)
           : transSheets[accountNum].month[monthOfYear] = [dailyTrans]
@@ -73,21 +92,44 @@ function DashBoard() {
     return accountInfos;
   }
 
-  //fetch api data
-  const fetchData = async () => {
-    try {
-      const datas = await getTransData().then();
-      const newData = setUpDatas(datas);
-      setTransDatas(newData);
-    } catch (error) {
-      console.error(error);
+
+
+  const addData = (newData) => {
+    if (newData) {
+      setError({
+        isError:false,
+        message:""
+      })
+      setData([...data,newData])
+    } else {
+      const newMessage = "Please entery all corresponding data"
+      setError({
+        isError: true,
+        message: newMessage
+      })
     }
+    
   }
 
   useEffect(() => {
-    fetchData();
+    if (!data) {
+      //fetch api data
+      let initData = [];
+      const fetchData = async () => {
+        initData = await getTransData().then();
+        setData(initData);
+        const newTransData = setUpDatas(initData);
+        setTransDatas(newTransData);
+      }
+      fetchData().catch(console.error);
+    } else {
+      const newTransData = setUpDatas(data);
+      setTransDatas(newTransData);
+    }
     // eslint-disable-next-line
-  }, [])
+  }, [data])
+
+
 
   const renderAccs = transDatas ?
     transDatas.map((data, index) => {
@@ -96,10 +138,19 @@ function DashBoard() {
     : ""
 
   return (
+    <>
       <div className='dashBoard'>
         <header>Reward Program</header>
         {renderAccs}
       </div>
+      
+      <div>
+        <AddData addData={addData} />
+      </div>
+      <div>
+      {error.isError ? <div>{error.message}</div> : ""}
+      </div>
+    </>
   );
 }
 

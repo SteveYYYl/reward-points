@@ -1,23 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import DailyTrans from './DailyTrans';
 
-function MothlyTrans({ month, dailyTransList }) {
+function MothlyTrans({ month, dailyTransList,monthlyPoint,monthlySpent }) {
 
     const [toogle, setToogle] = useState(false);
-    const [spentTotal,setSpentTotal] = useState(0);
-    const [rewardTotal,setRewardTotal] = useState(0);
-
-
-    useEffect(()=>{
-        let newSpentTotal = 0;
-        let newrewardTotal = 0;
-        dailyTransList.forEach(element => {
-            newSpentTotal += element.amount;
-            newrewardTotal += element.point;
-        });
-        setSpentTotal(newSpentTotal);
-        setRewardTotal(newrewardTotal);
-    },[dailyTransList])
 
     const handleToogle = () => {
         setToogle(!toogle)
@@ -48,8 +34,8 @@ function MothlyTrans({ month, dailyTransList }) {
                 <tfoot>
                     <tr>
                         <th scope="total">Total</th>
-                        <td >${spentTotal}</td>
-                        <td >{rewardTotal}</td>
+                        <td >${monthlySpent}</td>
+                        <td >{monthlyPoint}</td>
 
                     </tr>
                 </tfoot>
